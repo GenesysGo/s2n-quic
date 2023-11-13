@@ -139,7 +139,7 @@ pub fn recv<'a, Sock: AsRawFd, P: IntoIterator<Item = &'a mut msghdr>, E: Socket
         // > discarded depending on the type of socket the message is received from.
         //
         // > These calls return the number of bytes received, or -1 if an error occurred.
-        let result = libc!(recvmsg(sockfd, msg, flags));
+        let result = libc!(recvmsg(sockfd, msg, flags.try_into().unwrap()));
 
         #[cfg(debug_assertions)]
         {
